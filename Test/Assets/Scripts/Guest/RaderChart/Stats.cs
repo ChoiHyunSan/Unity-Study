@@ -11,36 +11,40 @@ public class Stats {
     public static int STAT_MAX = 20;
 
     public enum Type {
-        Attack,
-        Defence,
-        Speed,
-        Mana,
-        Health,
+        Joy,
+        Sad,
+        Fear,
+        Calm,
+        Anger,
     }
 
-    private SingleStat attackStat;
-    private SingleStat defenceStat;
-    private SingleStat speedStat;
-    private SingleStat manaStat;
-    private SingleStat healthStat;
+    private SingleStat JoyStat;
+    private SingleStat SadStat;
+    private SingleStat FearStat;
+    private SingleStat CalmStat;
+    private SingleStat AngerStat;
 
-    public Stats(int attackStatAmount, int defenceStatAmount, int speedStatAmount, int manaStatAmount, int healthStatAmount) {
-        attackStat = new SingleStat(attackStatAmount);
-        defenceStat = new SingleStat(defenceStatAmount);
-        speedStat = new SingleStat(speedStatAmount);
-        manaStat = new SingleStat(manaStatAmount);
-        healthStat = new SingleStat(healthStatAmount);
+    public Stats(int JoyStatAmount, int SadStatAmount, int FearStatAmount, int CalmStatAmount, int AngerStatAmount) {
+        JoyStat = new SingleStat(JoyStatAmount);
+        SadStat = new SingleStat(SadStatAmount);
+        FearStat = new SingleStat(FearStatAmount);
+        CalmStat = new SingleStat(CalmStatAmount);
+        AngerStat = new SingleStat(AngerStatAmount);
+    }
+
+    public void Start()
+    {
     }
 
 
     private SingleStat GetSingleStat(Type statType) {
         switch (statType) {
         default:
-        case Type.Attack:       return attackStat;
-        case Type.Defence:      return defenceStat;
-        case Type.Speed:        return speedStat;
-        case Type.Mana:         return manaStat;
-        case Type.Health:       return healthStat;
+        case Type.Joy:       return JoyStat;
+        case Type.Sad:      return SadStat;
+        case Type.Fear:        return FearStat;
+        case Type.Calm:         return CalmStat;
+        case Type.Anger:       return AngerStat;
         }
     }
     
@@ -64,8 +68,6 @@ public class Stats {
     public float GetStatAmountNormalized(Type statType) {
         return GetSingleStat(statType).GetStatAmountNormalized();
     }
-
-
 
     /*
      * Represents a Single Stat of any Type

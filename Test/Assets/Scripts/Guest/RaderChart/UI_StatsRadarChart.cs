@@ -34,50 +34,50 @@ public class UI_StatsRadarChart : MonoBehaviour {
         float angleIncrement = 360f / 5;
         float radarChartSize = 145f;
 
-        Vector3 attackVertex = Quaternion.Euler(0, 0, -angleIncrement * 0) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Attack);
-        int attackVertexIndex = 1;
-        Vector3 defenceVertex = Quaternion.Euler(0, 0, -angleIncrement * 1) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Defence);
-        int defenceVertexIndex = 2;
-        Vector3 speedVertex = Quaternion.Euler(0, 0, -angleIncrement * 2) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Speed);
-        int speedVertexIndex = 3;
-        Vector3 manaVertex = Quaternion.Euler(0, 0, -angleIncrement * 3) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Mana);
-        int manaVertexIndex = 4;
-        Vector3 healthVertex = Quaternion.Euler(0, 0, -angleIncrement * 4) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Health);
-        int healthVertexIndex = 5;
+        Vector3 JoyVertex = Quaternion.Euler(0, 0, -angleIncrement * 0) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Joy);
+        int JoyVertexIndex = 1;
+        Vector3 SadVertex = Quaternion.Euler(0, 0, -angleIncrement * 1) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Sad);
+        int SadVertexIndex = 2;
+        Vector3 FearVertex = Quaternion.Euler(0, 0, -angleIncrement * 2) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Fear);
+        int FearVertexIndex = 3;
+        Vector3 CalmVertex = Quaternion.Euler(0, 0, -angleIncrement * 3) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Calm);
+        int CalmVertexIndex = 4;
+        Vector3 AngerIndex = Quaternion.Euler(0, 0, -angleIncrement * 4) * Vector3.up * radarChartSize * stats.GetStatAmountNormalized(Stats.Type.Anger);
+        int AngerVertexIndex = 5;
 
         vertices[0] = Vector3.zero;
-        vertices[attackVertexIndex]  = attackVertex;
-        vertices[defenceVertexIndex] = defenceVertex;
-        vertices[speedVertexIndex]   = speedVertex;
-        vertices[manaVertexIndex]    = manaVertex;
-        vertices[healthVertexIndex]  = healthVertex;
+        vertices[JoyVertexIndex]  = JoyVertex;
+        vertices[SadVertexIndex] = SadVertex;
+        vertices[FearVertexIndex]   = FearVertex;
+        vertices[CalmVertexIndex]    = CalmVertex;
+        vertices[AngerVertexIndex]  = AngerIndex;
 
         uv[0]                   = Vector2.zero;
-        uv[attackVertexIndex]   = Vector2.one;
-        uv[defenceVertexIndex]  = Vector2.one;
-        uv[speedVertexIndex]    = Vector2.one;
-        uv[manaVertexIndex]     = Vector2.one;
-        uv[healthVertexIndex]   = Vector2.one;
+        uv[JoyVertexIndex]   = Vector2.one;
+        uv[SadVertexIndex]  = Vector2.one;
+        uv[FearVertexIndex]    = Vector2.one;
+        uv[CalmVertexIndex]     = Vector2.one;
+        uv[AngerVertexIndex]   = Vector2.one;
 
         triangles[0] = 0;
-        triangles[1] = attackVertexIndex;
-        triangles[2] = defenceVertexIndex;
+        triangles[1] = JoyVertexIndex;
+        triangles[2] = SadVertexIndex;
 
         triangles[3] = 0;
-        triangles[4] = defenceVertexIndex;
-        triangles[5] = speedVertexIndex;
+        triangles[4] = SadVertexIndex;
+        triangles[5] = FearVertexIndex;
 
         triangles[6] = 0;
-        triangles[7] = speedVertexIndex;
-        triangles[8] = manaVertexIndex;
+        triangles[7] = FearVertexIndex;
+        triangles[8] = CalmVertexIndex;
 
         triangles[9]  = 0;
-        triangles[10] = manaVertexIndex;
-        triangles[11] = healthVertexIndex;
+        triangles[10] = CalmVertexIndex;
+        triangles[11] = AngerVertexIndex;
 
         triangles[12] = 0;
-        triangles[13] = healthVertexIndex;
-        triangles[14] = attackVertexIndex;
+        triangles[13] = AngerVertexIndex;
+        triangles[14] = JoyVertexIndex;
 
 
         mesh.vertices = vertices;

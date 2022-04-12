@@ -11,7 +11,7 @@ public class Guest_Info : ScriptableObject
 {
     public string gName;
     public int[] gSeed;
-    public float[] gEmotion = new float[5];
+    public int[] gEmotion = new int[5];
 
     public int gStatisfaction;
     public state gState;
