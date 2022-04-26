@@ -7,9 +7,11 @@ public class Stats {
 
     public event EventHandler OnStatsChanged;
 
+    // 감정값의 최소- 최대 값 지정
     public static int STAT_MIN = 0;
-    public static int STAT_MAX = 20;
+    public static int STAT_MAX = 100;
 
+    // 열거형 감성 타입 선언
     public enum Type {
         Joy,
         Sad,
@@ -18,12 +20,14 @@ public class Stats {
         Anger,
     }
 
+    // private 형태의 SingleStat 자료형 감정들을 선언
     private SingleStat JoyStat;
     private SingleStat SadStat;
     private SingleStat FearStat;
     private SingleStat CalmStat;
     private SingleStat AngerStat;
 
+    // Stats을 생성하고 매개 변수를 받아서 멤버 변수들을 초기화 할 수 있도록 함수 생성
     public Stats(int JoyStatAmount, int SadStatAmount, int FearStatAmount, int CalmStatAmount, int AngerStatAmount) {
         JoyStat = new SingleStat(JoyStatAmount);
         SadStat = new SingleStat(SadStatAmount);
@@ -36,7 +40,7 @@ public class Stats {
     {
     }
 
-
+    // Type형의 값이 들어왔을 때 switch 문을 통해 해당 Type에 맞는 스탯을 반환해준다.
     private SingleStat GetSingleStat(Type statType) {
         switch (statType) {
         default:
@@ -69,9 +73,7 @@ public class Stats {
         return GetSingleStat(statType).GetStatAmountNormalized();
     }
 
-    /*
-     * Represents a Single Stat of any Type
-     * */
+
     private class SingleStat {
 
         private int stat;

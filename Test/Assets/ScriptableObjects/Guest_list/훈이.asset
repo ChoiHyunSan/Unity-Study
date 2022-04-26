@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2f2b59774587d241a008dc89f277d78, type: 3}
-  m_Name: "\uB9F9\uAD6C"
+  m_Name: "\uD6C8\uC774"
   m_EditorClassIdentifier: 
-  gName: "\uB9F9\uAD6C"
+  gName: "\uD6C8\uC774"
   gSeed: 
-  gEmotion: 0000000000000000000000000000000000000000
+  gEmotion: 18000000230000003f0000002900000039000000
   gStatisfaction: 0
   gState: 0
   img: {fileID: 0}

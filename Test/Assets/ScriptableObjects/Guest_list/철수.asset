@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gName: "\uCCA0\uC218"
   gSeed: 
-  gEmotion: 180000001800000018000000a801000078090000
+  gEmotion: 180000001800000018000000230000003f000000
   gStatisfaction: 0
   gState: 0
   img: {fileID: 0}
