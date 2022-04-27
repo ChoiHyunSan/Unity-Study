@@ -23,7 +23,6 @@ public class Testing : MonoBehaviour {
 
         stats = new Stats(emotion[0], emotion[1], emotion[2], emotion[3], emotion[4]);
         uiStatsRadarChart.SetStats(stats);
-
     }
     private void Update()
     { 

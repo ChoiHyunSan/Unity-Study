@@ -15,7 +15,7 @@ public class Guest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        
     }
 
     public string getName(int i)
