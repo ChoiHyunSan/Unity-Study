@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class dialog_info
 {
     public string guestName;
-    Dictionary<int, string[]> Data;
+    Dictionary<int, string[]> Data; // <만족도, 만족도에 해당하는 대화지문>
 }
 
 public class Dialog : MonoBehaviour
@@ -16,15 +16,34 @@ public class Dialog : MonoBehaviour
 
     public GameObject textPanel; // 대화 창
     public Text GuestText; // 대화가 진행 될 텍스트
+
+
     private Dictionary<int, string[]> dialogData;
-    public bool isReading;
-    private int DialogIndex;
+
+
+
+    private int DialogIndex; // 해당 만족도에 속하는 지문의 인덱스
+
+    private string DialogText; // 실제로 화면에 출력시킬 내용
+    private int DialogCharIndex; // 실제로 화면에 출력시키는 내용의 인덱스
+    private bool isReading; // 현재 대화창에서 대화를 출력하는 중인가?
+
 
     private void Awake()
     {
+        isReading = false;
+        DialogCharIndex = 0;
         DialogIndex = 0;
+        DialogCharIndex = 0;
+        GuestText.text = "";
         dialogData = new Dictionary<int,string[]>();
         loadDialog();
+
+    }
+    private void initDialog()
+    {
+        DialogCharIndex = 0;
+        GuestText.text = "";
     }
 
     // 손님의 이름을 읽어온다.
@@ -32,37 +51,51 @@ public class Dialog : MonoBehaviour
     {
           
     }
-
     // 손님의 이름을 이용하여 그에 해당하는 텍스트를 파일에서 불러온다.
     private void loadDialog()
     {
         //만족도에 따라 다른 대화창을 가져온다.
-        dialogData.Add(1, new string[] { "안녕", "나는 짱구야", "만나서 반가워" }); // 불러왔다고 가정하고 테스트 문장 삽입
+        dialogData.Add(1, new string[]  {"나는 짱구야", test_dialog, "만나서 반가워" }); // 불러왔다고 가정하고 테스트 문장 삽입
     }
     
     public string GetDialog(int sat, int dialogindex)
     {
         return dialogData[sat][dialogindex];
     }
-
-    IEnumerator WaitForIt(float time)
+    private void readDialogAtAll()
     {
-        yield return new WaitForSeconds(time);
+        //initDialog();
+        GuestText.text += GetDialog(1, DialogIndex);
+        isReading = false;
     }
-    
+    private void readDialogAtOne()
+    {
+        isReading = true;
+        if (GuestText.text == GetDialog(1, DialogIndex)) {
+            //initDialog();
+            DialogIndex++;
+            isReading = false;
+            return; 
+        }
+        GuestText.text += GetDialog(1, DialogIndex)[DialogCharIndex];
+        DialogCharIndex++;
+        Debug.Log(GuestText.text);
+        Invoke("readDialogAtOne",0.2f);
+    }  
     // 대화창에서 대화 내용을 출력한다.
 
     public void readDialog()
     {
+        initDialog();
         textPanel.SetActive(true);
+        // 대화가 출력중인 도중에 클릭한 경우, 문장이 한번에 출력이 된다.
+        if (isReading == true) {
+            readDialogAtAll();
+            return; 
+        }
         // 기본적으로 빈 텍스트에서 대화 내용을 한 글자씩 추가하여 출력하고 딜레이 하기를 반복한다.
-        GuestText.text = GetDialog(1, DialogIndex);
-        DialogIndex++;
+        readDialogAtOne();
         Debug.Log(GuestText.text);
-        StartCoroutine(WaitForIt(1000.0f));
-
-
-        // 텍스트 창을 클릭한 경우, 문장이 한번에 출력이 된다.
 
 
         // 텍스트가 모두 출력이 된 경우에 클릭 시, 다음 문장이 출력된다.
