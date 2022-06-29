@@ -15,7 +15,7 @@ public class Testing : MonoBehaviour {
 
         for (int i = 0; i < 5; i++)
         {
-            emotion[i] = GuestManager.GetComponent<Guest>().Guest_Infos[0].gEmotion[i];
+            emotion[i] = GuestManager.GetComponent<Guest>().mGuestInfos[0].mEmotion[i];
         }
 
         //if (OnStatsChanged != null) OnStatsChanged(this, EventArgs.Empty);
@@ -35,7 +35,7 @@ public class Testing : MonoBehaviour {
         // 매개변수로 넘겨받은 손님의 고유번호에 따라 해당 손님의 감정 값을 불러오고 방사형 그래프의 값을 갱신한다.
         for (int i = 0; i < 5; i++)
         {
-            emotion[i] = GuestManager.GetComponent<Guest>().Guest_Infos[Guest_number].gEmotion[i];
+            emotion[i] = GuestManager.GetComponent<Guest>().mGuestInfos[Guest_number].mEmotion[i];
         }
         Debug.Log("감정 변환 완료");
 

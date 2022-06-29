@@ -14,19 +14,19 @@ public class Test : MonoBehaviour
 
         for (int i =0; i<5; i++)
         {
-            names[i] = GuestManager.GetComponent<Guest>().Guest_Infos[i].gName;
+            names[i] = GuestManager.GetComponent<Guest>().mGuestInfos[i].mName;
             Debug.Log(names[i]);
         }
 
-        GuestManager.GetComponent<Guest>().Guest_Infos[0].gName = "액션가면";
+        GuestManager.GetComponent<Guest>().mGuestInfos[0].mName = "액션가면";
 
         for (int i = 0; i < 5; i++)
         {
-            names[i] = GuestManager.GetComponent<Guest>().Guest_Infos[i].gName;
+            names[i] = GuestManager.GetComponent<Guest>().mGuestInfos[i].mName;
             Debug.Log(names[i]);
         }
 
-        man = GuestManager.GetComponent<Guest>().Guest_Infos[0].gStatisfaction;
+        man = GuestManager.GetComponent<Guest>().mGuestInfos[0].mSatatisfaction;
         Debug.Log(man);
     }
 
