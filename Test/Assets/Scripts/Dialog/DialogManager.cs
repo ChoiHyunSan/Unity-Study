@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class DialogManager : MonoBehaviour
 {
     // 불러올 값들 선언
-    public Guest                    mGuestManager;
+    private Guest                   mGuestManager;
 
     public int                      mGuestNum;           // 손님의 번호를 넘겨받는다.
     private int                     mGuestSat;           // 손님의 현재 만족도
@@ -58,7 +58,7 @@ public class DialogManager : MonoBehaviour
     {
         mGuestManager = GameObject.Find("GuestManager").GetComponent<Guest>();
         tGuestName.text = mGuestManager.GetName(0);  // 날씨의 공간에서 응접실로 갈때 변수를 받아서 넘어가게끔 설정하면 될 것 같다. 
-        mGuestSat =  mGuestManager.GetSat(0);
+        mGuestSat =  mGuestManager.mGuestInfos[0].mSatatisfaction;
 
         mDialogIndex = 0;
         mDialogCharIndex = 0;
@@ -157,7 +157,8 @@ public class DialogManager : MonoBehaviour
         }
         tGuestText.text += GetDialog(mDialogIndex)[mDialogCharIndex];
         mDialogCharIndex++;
-        Invoke("readDialogAtOne", 0.05f);
+
+        Invoke("ReadDialogAtOne", 0.05f);
     }
 
 
@@ -189,8 +190,44 @@ public class DialogManager : MonoBehaviour
         // DialogIndex 를 초기화 하지 않는 이상, 대화는 이전 혹은 이후로 넘어가지 않기 때문에 우선은 보류하는 것으로 생각 중.
     }
 
+
+
     private void TakeGuest()
     {
         gTakeGuestPanel.SetActive(true);
     }
+
+    // 손님 수락하기
+    private void AcceptGuest()
+    {
+
+
+        // 손님이 이동했으므로 응접실에 있는 것들을 초기화 시켜준다.
+        ClearGuest();
+    }
+
+    // 손님 거절하기
+    private void RejectGuest(int guestNum)
+    {
+        // 방문하지 않는 횟수를 3으로 지정한다. (3일간 방문 X)
+        mGuestManager.mGuestInfos[guestNum].mNotVisitCount = 3;
+
+        // 손님이 이동했으므로 응접실에 있는 것들을 초기화 시켜준다.
+        ClearGuest();
+    }
+
+    // 응접실을 초기화 시켜준다.
+    private void ClearGuest()
+    {
+
+    }
 }
+// 추가할 기능 구현목록
+
+// 대화가 끝난 뭉티를 거절하면 해당 뭉티는 3일간 방문하지 않는다.
+// -> 거절버튼에 대한 상호작용 만들어야 함 (방문금지 3일 + 되돌아가기)
+
+// 대화 도중이나 대화 시작 전에 하루가 종료되는 경우 해당 뭉티의 방문 이력은 없는 것으로 처리
+// -> 수락, 거절 버튼 누를때 방문한 것으로 추가시키는 방식으로 진행 
+
+// 수락, 거절 버튼을 누를때는 배경화면이 페이드아웃 되면서 버튼만 하이라이트 되어야 함.

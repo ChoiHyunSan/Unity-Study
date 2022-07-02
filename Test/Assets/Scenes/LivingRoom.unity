@@ -366,7 +366,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1167420530}
         m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
-        m_MethodName: moveScenetoWeatherSpace
+        m_MethodName: MoveScenetoWeatherSpace
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -557,7 +557,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &466553091
 GameObject:
@@ -654,6 +654,7 @@ RectTransform:
   - {fileID: 140237701}
   - {fileID: 1484991006}
   - {fileID: 1574845582}
+  - {fileID: 474148091}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -685,13 +686,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474148090}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -400, y: -225, z: 0}
+  m_LocalScale: {x: 1.5625, y: 1.5625, z: 1.5625}
   m_Children:
   - {fileID: 1443809946}
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_Father: {fileID: 466553095}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &549401686
 GameObject:
@@ -775,7 +776,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 549401689}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1167420530}
+        m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
+        m_MethodName: MoveScenetoWeatherSpace
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &549401689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1061,7 +1074,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1167420530}
         m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
-        m_MethodName: readDialog
+        m_MethodName: ReadDialog
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1371,7 +1384,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1167420530
 MonoBehaviour:
@@ -1385,20 +1398,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555f38c0aa7471945b94f6f8aa68303a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guestManager: {fileID: 0}
-  guestNum: 0
-  dialogDB: {fileID: 11400000, guid: a5e39886026edaf458dee6357fb34297, type: 2}
-  textPanel: {fileID: 1484991005}
-  takeGuestPanel: {fileID: 1574845581}
-  GuestText: {fileID: 63313070}
-  GuestName: {fileID: 736568409}
-  guestImageArr:
-  - {fileID: 21300000, guid: c6cacc186701dde44a4b5a652f5c49ea, type: 3}
-  - {fileID: 21300000, guid: c6cacc186701dde44a4b5a652f5c49ea, type: 3}
-  - {fileID: 21300000, guid: c6cacc186701dde44a4b5a652f5c49ea, type: 3}
-  - {fileID: 21300000, guid: c6cacc186701dde44a4b5a652f5c49ea, type: 3}
-  - {fileID: 21300000, guid: c6cacc186701dde44a4b5a652f5c49ea, type: 3}
-  guestSprite: {fileID: 1325037137}
+  mGuestNum: 1
+  mDialogDB: {fileID: 11400000, guid: a5e39886026edaf458dee6357fb34297, type: 2}
+  gTextPanel: {fileID: 1484991005}
+  gTakeGuestPanel: {fileID: 1574845581}
+  tGuestText: {fileID: 63313070}
+  tGuestName: {fileID: 736568409}
+  sGuestImageArr:
+  - {fileID: 21300000, guid: 5a0febe40d183334a96036998e0cd0a4, type: 3}
+  - {fileID: 21300000, guid: 5a0febe40d183334a96036998e0cd0a4, type: 3}
+  - {fileID: 21300000, guid: 5a0febe40d183334a96036998e0cd0a4, type: 3}
+  - {fileID: 21300000, guid: 5a0febe40d183334a96036998e0cd0a4, type: 3}
+  - {fileID: 21300000, guid: 5a0febe40d183334a96036998e0cd0a4, type: 3}
+  gGuestSprite: {fileID: 1325037137}
 --- !u!1 &1325037137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,7 +1491,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1443809945
 GameObject:

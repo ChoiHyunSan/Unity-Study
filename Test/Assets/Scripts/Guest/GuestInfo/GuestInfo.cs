@@ -28,8 +28,6 @@ public struct SLimitEmotion
 
 public class GuestInfo : ScriptableObject
 {
-
-
     public string       mName;                                      // 손님의 이름
     public int[]        mSeed;                                      // 손님이 심고 갈 수 있는 재료의 인덱스 값
     public int[]        mEmotion = new int[20];                     // 손님의 감정 값. 총 20가지
@@ -43,6 +41,9 @@ public class GuestInfo : ScriptableObject
 
     public bool         isDisSat;                                   // 불만 뭉티인지 확인
     public bool         isCure;                                     // 손님이 만족도 5를 채워 모두 치유하였는지 확인 
+    public int          mVisitCount;                                // 남은 방문 횟수
+    public int          mNotVisitCount;                             // 방문하지 않는 횟수
+    public int[]        mUsedCloud = new int[10];                   // 사용한 구름 리스트를 저장한다. 최대 10개
 }
 
 // 감정
@@ -60,3 +61,12 @@ public class GuestInfo : ScriptableObject
 
 // 손님들마다 정보를 스크립트 오브젝트로 저장한다.
 // 저장한 값들을 필요할 때마다 접근하여 사용하고 변경한다.
+
+// 하나의 뭉티가 방문할 수 있는 횟수는 10회이다.
+// 하루에 뭉티는 최대 5명이 방문한다. 
+
+// 최대 방문횟수를 초과하지 않은 뭉티 중에서 5마리를 랜덤으로 뽑는다.
+// 랜덤으로 뽑힌 뭉티중에 불만뭉티가 존재한다면 다시 뽑지 않고 해당 뭉티를 제외하고 방문시킨다.
+// 완치된 뭉티들은 더이상 Cloud Factory를 방문하지 않는다.
+
+// 결론 
