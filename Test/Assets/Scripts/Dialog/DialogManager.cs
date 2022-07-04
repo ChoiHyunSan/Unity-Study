@@ -50,13 +50,13 @@ public class DialogManager : MonoBehaviour
         tGuestName.text = "실연";
 
         sGuestSpriteRender = gGuestSprite.GetComponent<SpriteRenderer>();
+        mGuestManager = GameObject.Find("GuestManager").GetComponent<Guest>();
     }
 
     // 테스트 함수
     // 대화창에서 다른 캐릭터 혹은 다른 만족도의 텍스트를 받아오는 경우 오류가 있는지 확인하기 위한 함수
     void A() 
     {
-        mGuestManager = GameObject.Find("GuestManager").GetComponent<Guest>();
         tGuestName.text = mGuestManager.GetName(0);  // 날씨의 공간에서 응접실로 갈때 변수를 받아서 넘어가게끔 설정하면 될 것 같다. 
         mGuestSat =  mGuestManager.mGuestInfos[0].mSatatisfaction;
 
@@ -77,6 +77,7 @@ public class DialogManager : MonoBehaviour
         mTextList = new string[20];
 
         isReading = false;
+
         LoadDialogInfo();
         ReadDialog();
     }
@@ -190,30 +191,30 @@ public class DialogManager : MonoBehaviour
         // DialogIndex 를 초기화 하지 않는 이상, 대화는 이전 혹은 이후로 넘어가지 않기 때문에 우선은 보류하는 것으로 생각 중.
     }
 
-
-
     private void TakeGuest()
     {
         gTakeGuestPanel.SetActive(true);
     }
 
     // 손님 수락하기
-    private void AcceptGuest()
-    {
-
-
+    public void AcceptGuest()
+    { 
+       mGuestManager.InitGuestTime();
         // 손님이 이동했으므로 응접실에 있는 것들을 초기화 시켜준다.
         ClearGuest();
+        MoveScenetoWeatherSpace();
     }
 
     // 손님 거절하기
-    private void RejectGuest(int guestNum)
+    public void RejectGuest()
     {
         // 방문하지 않는 횟수를 3으로 지정한다. (3일간 방문 X)
-        mGuestManager.mGuestInfos[guestNum].mNotVisitCount = 3;
+        mGuestManager.mGuestInfos[mGuestNum].mNotVisitCount = 3;
+        mGuestManager.InitGuestTime();
 
         // 손님이 이동했으므로 응접실에 있는 것들을 초기화 시켜준다.
         ClearGuest();
+        MoveScenetoWeatherSpace();
     }
 
     // 응접실을 초기화 시켜준다.

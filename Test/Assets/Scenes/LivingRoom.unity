@@ -1657,7 +1657,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1483519721}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1167420530}
+        m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
+        m_MethodName: AcceptGuest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1483519721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1933,7 +1945,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1841840723}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1167420530}
+        m_TargetAssemblyTypeName: DialogManager, Assembly-CSharp
+        m_MethodName: RejectGuest
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1841840723
 MonoBehaviour:
   m_ObjectHideFlags: 0

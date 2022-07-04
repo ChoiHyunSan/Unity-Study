@@ -6,10 +6,23 @@ using UnityEngine.SceneManagement;
 public class Guest : MonoBehaviour
 {
     //public
-    public GuestInfo[] mGuestInfos;             // Scriptable Objects들의 정보를 담고 있는 배열
+    public GuestInfo[]      mGuestInfos;                        // Scriptable Objects들의 정보를 담고 있는 배열
+
+    public float            mGuestTime;                         // 뭉티의 방문 주기
+    private bool            isTimeToTakeGuest;                  // 뭉티 방문주기가 지났는지 확인
+
+    public int[]            mTodayGuestList = new int[5];       // 오늘 방문 예정인 뭉티 목록
+    public int              mGuestIndex;                        // 이번에 방문할 뭉티의 번호
 
     //private
-    private static Guest instance = null;       // 싱글톤 기법을 위함 instance 생성
+    private static Guest    instance = null;                    // 싱글톤 기법을 위함 instance 생성
+
+    private void Start()
+    {
+        mGuestTime = 0;
+        mGuestIndex = 0;
+        isTimeToTakeGuest = false;
+    }
 
     // Start is called before the first frame update
     private void Awake()
@@ -29,6 +42,19 @@ public class Guest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // 뭉티의 방문주기를 돌린다.
+        if (mGuestTime < 5.0f)
+        {
+            mGuestTime += Time.deltaTime;
+        }
+        else if(mGuestTime >= 5.0f && isTimeToTakeGuest == false)
+        {
+            Debug.Log("뭉티 방문시간이 되었습니다");
+            isTimeToTakeGuest = true;
+
+            // 응접실 이동하는 버튼들에 대한 상호작용
+
+        }
         // 구름을 수령 받았을 경우에만 해당 뭉티의 감정의 변화값을 부여함
 
 
@@ -59,6 +85,10 @@ public class Guest : MonoBehaviour
             mGuestInfos[0].isDisSat = CheckIsDisSat(0);
             Debug.Log(mGuestInfos[0].isDisSat);
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            InitGuestTime();
+        }
     }
 
     public void MoveSceneToLivingRoom()
@@ -82,16 +112,14 @@ public class Guest : MonoBehaviour
     // 5. 만약 감정 상하한선을 침범했을 경우 뭉티를 불만 뭉티로 설정 (불만 뭉티에 대한 관리는 스크립트 추가 작성) - 함수 생성
     // 6. 만약 만족도가 변경되었을 시에 만족도 값 갱신 (해당 뭉티의 대표감정 갱신) - 함수 생성
 
-    // 7. 만족도가 올라갔을 경우 마당에 뿌릴 수 있는 씨앗에 관련된 값을 받아서 심기
+    // 7. 만족도가 올라갔을 경우 마당에 뿌릴 수 있는 씨앗(재료)에 관련된 값을 받아서 심기
     // 8. 구름 제공에 관한 결과를 화면에 띄워주고 뭉티를 날씨의 공간에서 내보내기
     //------------------------------------------------------------------------------------------------------------------------------------------
     
-
-
     // 상하한선을 침범하는지 판단하여 넘어가는 경우 불만뭉티로 변환한다. -> 구름 제공 순서 5번에서 진행
     public bool CheckIsDisSat(int guestNum)
     {
-        int temp = IsExcessLine(guestNum);                                               // 침범하는 경우에 감정값을 임의로 저장할 변수
+        int temp = IsExcessLine(guestNum);                      // 침범하는 경우에 감정값을 임의로 저장할 변수
 
         // 상하한 선을 침범한 경우를 확인
         if (temp != -1) 
@@ -172,22 +200,45 @@ public class Guest : MonoBehaviour
 
 
     // 하루가 시작하면서 당일 날 방문할 뭉티 뽑기
-    public int[] ChoiceGuest()
+    public int[] ChoiceGuest() // 수정중
     {
         int[] guestList = new int[5];
 
+        for(int i = 0; i< 5; i++)
+        {
+            int temp = Random.Range(0, 20);
 
+            guestList[i] = temp;
+        }
+        Debug.Log("오늘 방문할 뭉티 리스트가 초기화 되었습니다");
         return guestList;
     }
 
     // 해당 뭉티를 초기화 시켜주는 함수
-
-    public void InitGuestData()
+    public void InitGuestData() // 추후에 개발
     {
 
     }
 
+    // 방문주기를 초기화 해주는 함수
+    public void InitGuestTime()
+    {
+        mGuestTime = 0.0f;
+        Debug.Log("방문주기 초기화");
+    }
     
+    // 하루가 지나면서 초기화가 필요한 정보들을 변환해준다.
+    public void InitDay() 
+    {
+        // 날씨의 공간에 아직 남아있는 뭉티들을 불만 뭉티로 만든다.
+
+        // 새로운 방문 뭉티 리스트를 뽑는다.
+
+        // 방문 주기를 초기화한다.
+
+        // 채집물들이 다시 갱신된다.
+
+    }
 
 }
 

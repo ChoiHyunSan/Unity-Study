@@ -14,10 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mName: "\uC9F1\uAD6C"
   mSeed: 
-  mEmotion: 73000000500000001e0000003c0000000a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  mSatatisfaction: 2
+  mEmotion: 590100001c0200001e0000003c0000000a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  mSatatisfaction: 0
   EState: 0
-  sImg: []
+  sImg:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mSatEmotions:
   - emotionNum: 0
     up: 100
@@ -43,8 +48,8 @@ MonoBehaviour:
     upLimitEmotionValue: 60
     downLimitEmotion: 1
     downLimitEmotionValue: 40
-  isDisSat: 0
+  isDisSat: 1
   isCure: 0
-  mVisitCount: 0
+  mVisitCount: 50
   mNotVisitCount: 0
   mUsedCloud: 0000000000000000000000000000000000000000
