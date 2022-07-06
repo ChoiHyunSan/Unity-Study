@@ -40,19 +40,6 @@ public class DialogManager : MonoBehaviour
     private bool                    isReading;           // 현재 대화창에서 대화를 출력하는 중인가?
     private bool                    isLastDialog;        // 마지막 대화를 불러왔는가?
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-        mDialogIndex = 0;
-        mDialogCharIndex = 0;
-        mDialogImageIndex = 0;
-        tGuestText.text = "";
-        tGuestName.text = "실연";
-
-        sGuestSpriteRender = gGuestSprite.GetComponent<SpriteRenderer>();
-        mGuestManager = GameObject.Find("GuestManager").GetComponent<Guest>();
-    }
-
     // 테스트 함수
     // 대화창에서 다른 캐릭터 혹은 다른 만족도의 텍스트를 받아오는 경우 오류가 있는지 확인하기 위한 함수
     void A() 
@@ -70,6 +57,16 @@ public class DialogManager : MonoBehaviour
 
     void Awake()
     {
+        mDialogIndex = 0;
+        mDialogIndex = GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex;
+        mDialogCharIndex = 0;
+        mDialogImageIndex = 0;
+        tGuestText.text = "";
+        tGuestName.text = "실연";
+
+        sGuestSpriteRender = gGuestSprite.GetComponent<SpriteRenderer>();
+        mGuestManager = GameObject.Find("GuestManager").GetComponent<Guest>();
+
         mGuestNum = 1;
         mGuestSat = 1;
 
@@ -139,7 +136,7 @@ public class DialogManager : MonoBehaviour
 
     private void ReadDialogAtAll()
     {
-        tGuestText.text += GetDialog(mDialogIndex);
+        tGuestText.text += GetDialog(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex);
         isReading = false;
     }
 
@@ -147,21 +144,21 @@ public class DialogManager : MonoBehaviour
     {
         isReading = true;
         //GuestName.text = testName;
-        if (tGuestText.text == GetDialog(mDialogIndex))
+        if (tGuestText.text == GetDialog(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex))
         {
             // 텍스트가 모두 출력이 된 경우에 클릭 시, 다음 문장이 출력된다.
-            mDialogIndex++;
+            //mDialogIndex++;
+            GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex += 1;
             mDialogImageIndex++;
             sGuestSpriteRender.sprite = sGuestImageArr[mDialogImageIndex];
             isReading = false;
             return;
         }
-        tGuestText.text += GetDialog(mDialogIndex)[mDialogCharIndex];
+        tGuestText.text += GetDialog(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex)[mDialogCharIndex];
         mDialogCharIndex++;
 
         Invoke("ReadDialogAtOne", 0.05f);
     }
-
 
     // 손님과의 대화를 실행시켜주는 함수
     public void ReadDialog()
@@ -169,7 +166,7 @@ public class DialogManager : MonoBehaviour
         InitDialog();
  
         // 마지막 End 문자열이 나오는 경우 ( 대화를 모두 불러온 경우)
-        if (GetDialog(mDialogIndex) == "End")
+        if (GetDialog(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex) == "End")
         {
             isLastDialog = true;
             // 대화 내용을 모두 출력하고 나면 손님 응대에 관한 여부를 플레이어에게 묻는다. (받는다/ 받지 않는다)
@@ -220,7 +217,7 @@ public class DialogManager : MonoBehaviour
     // 응접실을 초기화 시켜준다.
     private void ClearGuest()
     {
-
+        GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex = 0;
     }
 }
 // 추가할 기능 구현목록

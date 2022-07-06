@@ -12,9 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2f2b59774587d241a008dc89f277d78, type: 3}
   m_Name: "\uD6C8\uC774"
   m_EditorClassIdentifier: 
-  gName: "\uD6C8\uC774"
-  gSeed: 
-  gEmotion: 18000000230000003f0000002900000063000000
-  gStatisfaction: 0
-  gState: 0
-  img: {fileID: 0}
+  mName: 
+  mSeed: 
+  mEmotion: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  mSatatisfaction: 0
+  EState: 0
+  sImg: []
+  mSatEmotions:
+  - emotionNum: 0
+    up: 0
+    down: 0
+  - emotionNum: 0
+    up: 0
+    down: 0
+  - emotionNum: 0
+    up: 0
+    down: 0
+  - emotionNum: 0
+    up: 0
+    down: 0
+  - emotionNum: 0
+    up: 0
+    down: 0
+  mLimitEmotions:
+  - upLimitEmotion: 0
+    upLimitEmotionValue: 0
+    downLimitEmotion: 0
+    downLimitEmotionValue: 0
+  - upLimitEmotion: 0
+    upLimitEmotionValue: 0
+    downLimitEmotion: 0
+    downLimitEmotionValue: 0
+  isDisSat: 0
+  isCure: 0
+  mVisitCount: 1
+  mNotVisitCount: 0
+  isChosen: 0
+  mUsedCloud: 00000000000000000000000000000000000000000000000000000000000000000000000000000000

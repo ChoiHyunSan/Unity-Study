@@ -43,6 +43,8 @@ public class GuestInfo : ScriptableObject
     public bool         isCure;                                     // 손님이 만족도 5를 채워 모두 치유하였는지 확인 
     public int          mVisitCount;                                // 남은 방문 횟수
     public int          mNotVisitCount;                             // 방문하지 않는 횟수
+    public bool         isChosen;                                   // 선택되었는지 확인하는 변수
+
     public int[]        mUsedCloud = new int[10];                   // 사용한 구름 리스트를 저장한다. 최대 10개
 }
 
