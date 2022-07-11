@@ -17,41 +17,299 @@ MonoBehaviour:
     Sat: 1
     DialogIndex: 1
     DialogImageNumber: 1
-    Text: "\uC548\uB155\uD558\uC138\uC694 \uC81C \uC774\uB984\uC740 \uC2E4\uC5F0\uC774\uC5D0\uC694\u2026."
-  - GuestID: 1
+    Text: "\uC190\uB2D81"
+  - GuestID: 2
     Sat: 1
-    DialogIndex: 2
-    DialogImageNumber: 2
-    Text: "\uB9CC\uB098\uC11C \uBC18\u2026\uBC18\uAC00\uC6CC..\uC694.."
-  - GuestID: 1
-    Sat: 1
-    DialogIndex: 3
-    DialogImageNumber: 1
-    Text: "\uC5EC\uAE30\uC11C \uC81C.. \uB9C8\uC74C\uC744 \uCE58\uC720\uD560 \uC218
-      \uC788\uB2E4\uACE0 \uB4E4\uC5B4\uC11C \uCC3E\uC544\uC654\uC5B4\uC694.."
-  - GuestID: 1
-    Sat: 1
-    DialogIndex: 4
-    DialogImageNumber: 1
-    Text: "\uAC00\uB2A5\uD55C\uAC00\uC694..?"
-  - GuestID: 1
-    Sat: 2
     DialogIndex: 1
     DialogImageNumber: 1
-    Text: "\uC548\uB155 \uC0AC\uC2E4 \uB098\uB294 \uC9F1\uAD6C\uC57C"
+    Text: "\uC190\uB2D82"
+  - GuestID: 3
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D83"
+  - GuestID: 4
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D84"
+  - GuestID: 5
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D85"
+  - GuestID: 6
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 2
+    Text: "\uC190\uB2D86"
+  - GuestID: 7
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 2
+    Text: "\uC190\uB2D87"
+  - GuestID: 8
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 2
+    Text: "\uC190\uB2D88"
+  - GuestID: 9
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D89"
+  - GuestID: 10
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D810"
+  - GuestID: 11
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D811"
+  - GuestID: 12
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D812"
+  - GuestID: 13
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D813"
+  - GuestID: 14
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D814"
+  - GuestID: 15
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D815"
+  - GuestID: 16
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D816"
+  - GuestID: 17
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D817"
+  - GuestID: 18
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D818"
+  - GuestID: 19
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D819"
+  - GuestID: 20
+    Sat: 1
+    DialogIndex: 1
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D820"
   - GuestID: 1
-    Sat: 2
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D81"
+  - GuestID: 2
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D82"
+  - GuestID: 3
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D83"
+  - GuestID: 4
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D84"
+  - GuestID: 5
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D85"
+  - GuestID: 6
+    Sat: 1
     DialogIndex: 2
     DialogImageNumber: 2
-    Text: "\uB0B4 \uC598\uAE30\uB97C \uB4E4\uC5B4\uBD10"
+    Text: "\uC190\uB2D86"
+  - GuestID: 7
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 2
+    Text: "\uC190\uB2D87"
+  - GuestID: 8
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 2
+    Text: "\uC190\uB2D88"
+  - GuestID: 9
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D89"
+  - GuestID: 10
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D810"
+  - GuestID: 11
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D811"
+  - GuestID: 12
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D812"
+  - GuestID: 13
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D813"
+  - GuestID: 14
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D814"
+  - GuestID: 15
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D815"
+  - GuestID: 16
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D816"
+  - GuestID: 17
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D817"
+  - GuestID: 18
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D818"
+  - GuestID: 19
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D819"
+  - GuestID: 20
+    Sat: 1
+    DialogIndex: 2
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D820"
   - GuestID: 1
-    Sat: 2
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D81"
+  - GuestID: 2
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D82"
+  - GuestID: 3
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D83"
+  - GuestID: 4
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D84"
+  - GuestID: 5
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D85"
+  - GuestID: 6
+    Sat: 1
     DialogIndex: 3
     DialogImageNumber: 2
-    Text: "\uCC9C\uBC29\uC9C0\uCD95 \uC5BC\uB801\uB6B1\uB545 \uBE59\uAE00\uBE59\uAE00
-      \uB3CC\uC544\uAC00\uB294 \uC9F1\uAD6C\uB124 \uD558\uB8E8"
-  - GuestID: 1
-    Sat: 2
-    DialogIndex: 4
+    Text: "\uC190\uB2D86"
+  - GuestID: 7
+    Sat: 1
+    DialogIndex: 3
     DialogImageNumber: 2
-    Text: "\uC774\uD788\uD788\uD788\uD788\uD788\uD788\uD788\uD788\uD788\uD788\uD788\uD788\uD788\uD788\u3163\u314E"
+    Text: "\uC190\uB2D87"
+  - GuestID: 8
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 2
+    Text: "\uC190\uB2D88"
+  - GuestID: 9
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D89"
+  - GuestID: 10
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D810"
+  - GuestID: 11
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D811"
+  - GuestID: 12
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D812"
+  - GuestID: 13
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D813"
+  - GuestID: 14
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D814"
+  - GuestID: 15
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D815"
+  - GuestID: 16
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D816"
+  - GuestID: 17
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D817"
+  - GuestID: 18
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D818"
+  - GuestID: 19
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D819"
+  - GuestID: 20
+    Sat: 1
+    DialogIndex: 3
+    DialogImageNumber: 1
+    Text: "\uC190\uB2D820"

@@ -36,7 +36,7 @@ public class GuestInfo : ScriptableObject
     public EState       EState;                                     // 손님의 현재 행동 상태
     public Sprite[]     sImg;                                       // 손님의 이미지 -> 날씨의 공간에서의 상태     
 
-    public SSatEmotion[]   mSatEmotions = new SSatEmotion[5];         // 손님의 만족도 범위 5종류
+    public SSatEmotion[]   mSatEmotions = new SSatEmotion[5];       // 손님의 만족도 범위 5종류
     public SLimitEmotion[] mLimitEmotions = new SLimitEmotion[2]; 
 
     public bool         isDisSat;                                   // 불만 뭉티인지 확인

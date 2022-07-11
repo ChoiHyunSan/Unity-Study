@@ -5,23 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class Guest : MonoBehaviour
 {
-    //public
     public GuestInfo[]      mGuestInfos;                        // Scriptable Objects들의 정보를 담고 있는 배열
 
     public float            mGuestTime;                         // 뭉티의 방문 주기
     private bool            isTimeToTakeGuest;                  // 뭉티 방문주기가 지났는지 확인
 
-    public int[]            mTodayGuestList = new int[5];       // 오늘 방문 예정인 뭉티 목록
-    public int              mGuestIndex;                        // 이번에 방문할 뭉티의 번호
+    private int[]            mTodayGuestList = new int[6];      // 오늘 방문 예정인 뭉티 목록
+    public  int              mGuestIndex;                       // 이번에 방문할 뭉티의 번호
+    private int              mGuestCount;                       // 이번에 방문할 뭉티의 순서
+    private int              mGuestMax;                         // 오늘 방문하는 뭉티의 최대 숫자
 
-    //private
     private static Guest    instance = null;                    // 싱글톤 기법을 위함 instance 생성
 
     private void Start()
     {
-        mGuestTime = 0;
-        mGuestIndex = 0;
-        isTimeToTakeGuest = false;
+
     }
 
     // Start is called before the first frame update
@@ -32,6 +30,14 @@ public class Guest : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+
+            InitDay();
+
+            mGuestTime = 0;
+            mGuestCount = -1;
+            mGuestMax = 0;
+            isTimeToTakeGuest = false;
+
         }
         else
         {
@@ -49,14 +55,22 @@ public class Guest : MonoBehaviour
         }
         else if(mGuestTime >= 5.0f && isTimeToTakeGuest == false)
         {
-            Debug.Log("뭉티 방문시간이 되었습니다");
-            isTimeToTakeGuest = true;
+            // 모든 인덱스가 다 되지 않는 한 뭉티 방문주기가 다된경우 새로운 뭉티를 들여보낸다.
+            if (mGuestIndex != mGuestMax-2) // 0 1 2 3 4 5 
+            {
+                Debug.Log("뭉티 방문시간이 되었습니다");
+                isTimeToTakeGuest = true;
 
-            // 응접실 이동하는 버튼들에 대한 상호작용
-
+                // 응접실 이동하는 버튼들에 대한 상호작용
+            }
+            else
+            {
+                Debug.Log("모든 뭉티가 방문하였습니다.");
+            }
         }
 
         // 구름을 수령 받고 이용을 마친 경우에만 해당 뭉티의 감정의 변화값을 부여함
+
 
         // 싱글톤 기법 확인을 위한 테스트코드
         if (Input.GetKeyDown(KeyCode.A))
@@ -86,13 +100,21 @@ public class Guest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             NewChoiceGuest();
+            for (int i = 0; i < 6; i++)
+            {
+                Debug.Log(mTodayGuestList[i] + "번 뭉티가 추가되었습니다.");
+            }
         }
     }
 
     public void MoveSceneToLivingRoom()
-    {
-        SceneManager.LoadScene("LivingRoom");
-        Debug.Log("hello");
+    { 
+        if(isTimeToTakeGuest == true)
+        {
+            SceneManager.LoadScene("LivingRoom");
+            mGuestCount++;
+            mGuestIndex = mTodayGuestList[mGuestCount];
+        }
     }
 
     // 뭉티의 정보값들을 받아오는 API
@@ -114,7 +136,6 @@ public class Guest : MonoBehaviour
     // 8. 구름 제공에 관한 결과를 화면에 띄워주고 뭉티를 날씨의 공간에서 내보내기
     //------------------------------------------------------------------------------------------------------------------------------------------
     
-    // 상하한선을 침범하는지 판단하여 넘어가는 경우 불만뭉티로 변환한다. -> 구름 제공 순서 5번에서 진행
     public bool CheckIsDisSat(int guestNum)
     {
         int temp = IsExcessLine(guestNum);                      // 침범하는 경우에 감정값을 임의로 저장할 변수
@@ -209,14 +230,17 @@ public class Guest : MonoBehaviour
 
         return result;
     }
-
+    // 뭉티 리스트를 새로 생성하는 함수
     public int[] NewChoiceGuest()
     {
-        int[]       guestList           = new int[5];
-        int         totalGuestNum       = 20;
-        int         posssibleGuestNum   = 0;
-        List<int>   VisitedGuestNum     = new List<int>();
-        List<int>   NotVisitedGuestNum  = new List<int>();
+        int[]       guestList           = new int[6];       // 반환시킬 뭉티의 리스트
+        int         possibleToTake      = 6;                // 받을 수 있는 총 뭉티의 수
+
+        int         totalGuestNum       = 20;               // 총 뭉티의 수
+        int         possibleGuestNum    = 0;                // 방문이 가능한 뭉티의 수
+
+        List<int>   VisitedGuestNum     = new List<int>();  // 방문 이력이 있는 뭉티의 리스트
+        List<int>   NotVisitedGuestNum  = new List<int>();  // 방문 이력이 없는 뭉티의 리스트
 
         // 방문 횟수가 끝난 뭉티와 만족도가 5가 된 뭉티는 제외되어야 하므로 먼저 리스트에서 빼낸다.
         for (int i = 0; i < totalGuestNum; i++)
@@ -234,20 +258,19 @@ public class Guest : MonoBehaviour
             }
             if(mGuestInfos[i].isDisSat == false && mGuestInfos[i].mNotVisitCount == 0 && mGuestInfos[i].mVisitCount != 10 && mGuestInfos[i].isCure == false)
             {
-                posssibleGuestNum++;
+                possibleGuestNum++;
             }
         }
-        Debug.Log(posssibleGuestNum);
 
         int     GuestIndex = 0;
         bool    isOverLap = true;
         int     checkDisSat = 0;
 
-        // 방문 이력이 있는 뭉티가 4명 이상이 없는 경우
+        // 방문 이력이 있는 뭉티가 5명 이상이 없는 경우
         // 모든 방문 이력이 있는 뭉티를 뽑고 나머지를 방문 이력이 없는 뭉티로 채운다.
-        if (VisitedGuestNum.Count < 4)
+        if (VisitedGuestNum.Count < possibleToTake-1)
         {
-            Debug.Log("방문 이력이 있는 뭉티가 4명이상이 되지 않습니다");
+            Debug.Log("방문 이력이 있는 뭉티가 5명이상이 되지 않습니다");
             for (int i = 0; i < VisitedGuestNum.Count; i++)
             {
                 int temp = -1;
@@ -263,29 +286,37 @@ public class Guest : MonoBehaviour
                         {
                             count++;
                         }
-
-                        // 방문 불가 뭉티 + 불만 뭉티 > 3인 경우 다시 뽑게끔 한다.
-                        if ((mGuestInfos[VisitedGuestNum[temp]].isDisSat == true || mGuestInfos[VisitedGuestNum[temp]].mNotVisitCount != 0)
-                            && CheckDisSat(guestList, GuestIndex) == 3)
+                    }
+                    int rejectCount = 0;
+                    // 불만 뭉티이거나 방문 불가 상태 뭉티의 수를 구해야 한다.
+                    for (int j = 0; j < GuestIndex; j++)
+                    {
+                        if (mGuestInfos[guestList[j]].isDisSat == true || mGuestInfos[guestList[j]].mNotVisitCount != 0)
                         {
-                            if (posssibleGuestNum >= 2)
-                            {
-                                count++;
-                            }
+                            rejectCount++;
                         }
                     }
+                    //Debug.Log("reject Count : " + rejectCount);
+                    if ((mGuestInfos[VisitedGuestNum[temp]].isDisSat == true || mGuestInfos[VisitedGuestNum[temp]].mNotVisitCount != 0)
+                        && rejectCount >= possibleToTake-2)
+                    {
+                        if (possibleGuestNum >= 2)
+                        {
+                            count++;
+                        }
+                    }
+                    
                     if (count == 0)
                     {
                         isOverLap = false;
                     }
                 }
                 guestList[GuestIndex] = VisitedGuestNum[temp];
-                Debug.Log(guestList[GuestIndex] + "값이 추가되었습니다.");
                 GuestIndex++;
                 isOverLap = true;
 
             }
-            for (int i = 0; i < 5 - VisitedGuestNum.Count; i++)
+            for (int i = 0; i < possibleToTake - VisitedGuestNum.Count; i++)
             {
                 int temp = -1;
                 while (isOverLap)
@@ -300,22 +331,31 @@ public class Guest : MonoBehaviour
                         {
                             count++;
                         }
-                        if ((mGuestInfos[NotVisitedGuestNum[temp]].isDisSat == true || mGuestInfos[NotVisitedGuestNum[temp]].mNotVisitCount != 0)
-                            && CheckDisSat(guestList, GuestIndex) == 3)
+                    }
+                    int rejectCount = 0;
+                    // 불만 뭉티이거나 방문 불가 상태 뭉티의 수를 구해야 한다.
+                    for (int j = 0; j < GuestIndex; j++)
+                    {
+                        if (mGuestInfos[guestList[j]].isDisSat == true || mGuestInfos[guestList[j]].mNotVisitCount != 0)
                         {
-                            if (posssibleGuestNum >= 2)
-                            {
-                                count++;
-                            }
+                            rejectCount++;
                         }
                     }
+                    //Debug.Log("reject Count : " + rejectCount);
+                    if ((mGuestInfos[NotVisitedGuestNum[temp]].isDisSat == true || mGuestInfos[NotVisitedGuestNum[temp]].mNotVisitCount != 0)
+                        && rejectCount >= possibleToTake-2)
+                    {
+                        if (possibleGuestNum >= 2)
+                        {
+                            count++;
+                        }
+                    }            
                     if (count == 0)
                     {
                         isOverLap = false;
                     }
                 }
                 guestList[GuestIndex] = NotVisitedGuestNum[temp];
-                Debug.Log(guestList[GuestIndex] + "값이 추가되었습니다.");
                 GuestIndex++;
                 isOverLap = true;
 
@@ -326,7 +366,7 @@ public class Guest : MonoBehaviour
         else if (NotVisitedGuestNum.Count == 0)
         {
             Debug.Log("방문 이력이 없는 뭉티가 없습니다");
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < possibleToTake; i++)
             {
                 int temp = -1;
                 while (isOverLap)
@@ -340,30 +380,27 @@ public class Guest : MonoBehaviour
                         if (VisitedGuestNum[temp] == guestList[j])
                         {
                             count++;
-                            Debug.Log("값 중복.");
-                        }
-                        int rejectCount = 0;
-                        // 불만 뭉티이거나 방문 불가 상태 뭉티의 수를 구해야 한다.
-                        for (int k = 0; i < GuestIndex; k++)
-                        {
-                            if (mGuestInfos[guestList[GuestIndex]].isDisSat == true || mGuestInfos[guestList[GuestIndex]].mNotVisitCount != 0)
-                            {
-                                rejectCount++;
-                                Debug.Log(rejectCount);
-                            }
-                        }
-                        Debug.Log("reject Count : " + rejectCount);
-                        if ((mGuestInfos[VisitedGuestNum[temp]].isDisSat == true || mGuestInfos[VisitedGuestNum[temp]].mNotVisitCount != 0)
-                            && rejectCount == 3)
-                        {
-                            if (posssibleGuestNum >= 2)
-                            {
-                                count++;
-                                Debug.Log(mGuestInfos[VisitedGuestNum[temp]]);
-                                Debug.Log("불만 뭉티가 너무 많습니다.");
-                            }
+                            //Debug.Log("값 중복.");
                         }
                     }
+                    int rejectCount = 0;
+                    // 불만 뭉티이거나 방문 불가 상태 뭉티의 수를 구해야 한다.
+                    for (int j = 0; j < GuestIndex; j++)
+                    {
+                        if (mGuestInfos[guestList[j]].isDisSat == true || mGuestInfos[guestList[j]].mNotVisitCount != 0)
+                        {
+                            rejectCount++;
+                        }
+                    }
+                    if ((mGuestInfos[VisitedGuestNum[temp]].isDisSat == true || mGuestInfos[VisitedGuestNum[temp]].mNotVisitCount != 0)
+                        && rejectCount >= possibleToTake-2)
+                    {
+                        if (possibleGuestNum >= 2)
+                        {
+                            count++;
+                        }
+                    }
+                    
                     if (count == 0)
                     {
                         isOverLap = false;
@@ -371,17 +408,16 @@ public class Guest : MonoBehaviour
                 }
                 guestList[GuestIndex] = VisitedGuestNum[temp];
 
-                Debug.Log(guestList[GuestIndex] + "값이 추가되었습니다.");
                 GuestIndex++;
                 isOverLap = true;
 
             }
         }
-        // 그 외의 경우에는 방문 이력이 있는 뭉티 4명, 방문 이력이 없는 뭉티 1명은 뽑는다.
+        // 그 외의 경우에는 방문 이력이 있는 뭉티 5명, 방문 이력이 없는 뭉티 1명은 뽑는다.
         else
         {
-            Debug.Log("방문이력 뭉티 4명, 방문 이력이 없는 뭉티 1명을 뽑습니다.");
-            for (int i = 0; i < 4; i++)
+            Debug.Log("방문이력 뭉티 5명, 방문 이력이 없는 뭉티 1명을 뽑습니다.");
+            for (int i = 0; i < possibleToTake-1; i++)
             {
                 int temp = -1;
                 while (isOverLap)
@@ -396,34 +432,31 @@ public class Guest : MonoBehaviour
                         {
                             count++;
                         }
-
-                        int rejectCount = 0;
-                        // 불만 뭉티이거나 방문 불가 상태 뭉티의 수를 구해야 한다.
-                        for(int k = 0; i< GuestIndex; k++)
+                    }
+                    int rejectCount = 0;
+                    // 불만 뭉티이거나 방문 불가 상태 뭉티의 수를 구해야 한다.
+                    for (int j = 0; j < GuestIndex; j++)
+                    {
+                        if (mGuestInfos[guestList[j]].isDisSat == true || mGuestInfos[guestList[j]].mNotVisitCount != 0)
                         {
-                            if (mGuestInfos[guestList[GuestIndex]].isDisSat == true || mGuestInfos[guestList[GuestIndex]].mNotVisitCount != 0)
-                            {
-                                rejectCount++;
-                            }
-                        }
-                        if ((mGuestInfos[VisitedGuestNum[temp]].isDisSat == true || mGuestInfos[VisitedGuestNum[temp]].mNotVisitCount != 0)
-                            && rejectCount == 3)
-                        {
-                            if (posssibleGuestNum >= 2)
-                            {
-                                count++; 
-                                Debug.Log(mGuestInfos[NotVisitedGuestNum[temp]]);
-                                Debug.Log("불만 뭉티가 너무 많습니다.");
-                            }
+                            rejectCount++;
                         }
                     }
+                    if ((mGuestInfos[VisitedGuestNum[temp]].isDisSat == true || mGuestInfos[VisitedGuestNum[temp]].mNotVisitCount != 0)
+                        && rejectCount >= possibleToTake-2)
+                    {
+                        if (possibleGuestNum >= 2)
+                        {
+                            count++;
+                        }
+                    }
+                    
                     if (count == 0)
                     {
                         isOverLap = false;
                     }
                 }
                 guestList[GuestIndex] = VisitedGuestNum[temp];
-                Debug.Log(guestList[GuestIndex] + "값이 추가되었습니다.");
                 GuestIndex++;
                 isOverLap = true;
 
@@ -443,26 +476,24 @@ public class Guest : MonoBehaviour
                         {
                             count++;
                         }
-                        int rejectCount = 0;
-                        // 불만 뭉티이거나 방문 불가 상태 뭉티의 수를 구해야 한다.
-                        for (int k = 0; i < GuestIndex; k++)
+                    }
+                    int rejectCount = 0;
+                    // 불만 뭉티이거나 방문 불가 상태 뭉티의 수를 구해야 한다.
+                    for (int j = 0; j < GuestIndex; j++)
+                    {
+                        if (mGuestInfos[guestList[j]].isDisSat == true || mGuestInfos[guestList[j]].mNotVisitCount != 0)
                         {
-                            if (mGuestInfos[guestList[GuestIndex]].isDisSat == true || mGuestInfos[guestList[GuestIndex]].mNotVisitCount != 0)
-                            {
-                                rejectCount++;
-                            }
-                        }
-                        if ((mGuestInfos[NotVisitedGuestNum[temp]].isDisSat == true || mGuestInfos[NotVisitedGuestNum[temp]].mNotVisitCount != 0)
-                            && rejectCount == 3)
-                        {
-                            if (posssibleGuestNum >= 2)
-                            {
-                                count++;
-                                Debug.Log(mGuestInfos[NotVisitedGuestNum[temp]]);
-                                Debug.Log("불만 뭉티가 너무 많습니다.");
-                            }
+                            rejectCount++;
                         }
                     }
+                    if ((mGuestInfos[NotVisitedGuestNum[temp]].isDisSat == true || mGuestInfos[NotVisitedGuestNum[temp]].mNotVisitCount != 0)
+                        && rejectCount >= possibleToTake-2)
+                    {
+                        if (possibleGuestNum >= 2)
+                        {
+                            count++;
+                        }
+                    }           
                     if (count == 0)
                     {
                         isOverLap = false;
@@ -470,99 +501,28 @@ public class Guest : MonoBehaviour
                 }
                 guestList[GuestIndex] = NotVisitedGuestNum[temp];
 
-                Debug.Log(guestList[GuestIndex] + "값이 추가되었습니다.");
                 GuestIndex++;
                 isOverLap = true;
             }
         }
         // 불만 뭉티라면 빼버린다.
-
-        Debug.Log(checkDisSat);
-
-        return guestList;
-    }
-
-    // 하루가 시작하면서 당일 날 방문할 뭉티 뽑기
-    public int[] ChoiceGuest() // 수정중
-    {
-        int[]   guestList = new int[5];     // 반환할 뭉티 리스트
-        int     VisitedGuestNum = 0;        // 방문 이력이 있는 뭉티 수
-        int     NotVisitedGuestNum = 0;     // 방문 이력이 없는 뭉티 수
-        bool    chooseRight;
-
-        // 먼저 남은 뭉티의 수가 얼마인지 확인한다. (남은 뭉티 = 전체 - 치유완료 - 방문 불가)
-        int     countGuest = 20;
-        for(int i = 0; i< 20; i++)
+        int[] tempList = new int[6];
+        int a = 0;
+        for(int i=0; i< possibleToTake; i++)
         {
-            if(mGuestInfos[i].isCure == true || mGuestInfos[i].mNotVisitCount != 0)
+            tempList[i] = -1;
+        }
+        for(int i = 0; i< possibleToTake; i++)
+        {
+            if(mGuestInfos[guestList[i]].isDisSat == false && mGuestInfos[guestList[i]].mNotVisitCount == 0)
             {
-                countGuest--;
+                tempList[a] = guestList[i];
+                a++;
+                mGuestMax++;
             }
         }
 
-        // 남은 뭉티의 수가 5마리 이상이라면 일반적인 방법으로 뭉티 리스트를 뽑는다.
-        if (countGuest > 5)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                guestList[i] = -1;
-                chooseRight = false;
-                while (chooseRight == false)    // 뭉티가 올바르게 골라질 때 까지
-                {
-                    int temp = Random.Range(0, 20);
-
-                    // 방문한 횟수가 10회이거나 만족도 5를 채워 치유를 완료한 뭉티인 경우 다시 뽑는다.
-                    if (mGuestInfos[temp].mVisitCount == 10 || mGuestInfos[temp].isCure == true)
-                    {
-                        break;
-                    }
-                    // 이미 뽑힌 뭉티인 경우에도 다시 뽑는다.
-                    if(mGuestInfos[temp].isChosen == true)
-                    {
-                        break;
-                    }
-
-                    if (mGuestInfos[temp].mVisitCount == 0) // 해당 뭉티가 방문 이력이 없는 경우
-                    {
-                        NotVisitedGuestNum++;
-                    }
-                    {
-                        VisitedGuestNum++;
-                    }
-
-                    guestList[i] = temp;
-                    mGuestInfos[temp].isChosen = true;
-                    chooseRight = true;
-                }
-            }
-
-            // 리스트에 있는 뭉티의 조합이 방문 이력이 있는 뭉티 4명, 방문 이력이 없는 뭉티 1명의 구성인지 확인한다.
-
-
-        }
-        // 5마리 이하인 경우 고를 수 잇는 뭉티를 모두 리스트에 담는다.
-        else
-        {
-            int j = 0;
-            for(int i = 0; i< 20; i++)
-            {
-                if(mGuestInfos[i].isCure == false || mGuestInfos[i].mNotVisitCount == 0)
-                {
-                    guestList[j] = i;
-                    j++;
-                }
-            }
-        }
-
-        // 불만 뭉티와 방문 불가 상태의 뭉티들을 리스트에서 제외한다.
-
-
-        Debug.Log("오늘 방문할 뭉티 리스트가 초기화 되었습니다");
-
-        for(int i = 0; i< 20; i++)
-        {
-            mGuestInfos[i].isChosen = false;
-        }
+        guestList = tempList;
 
         return guestList;
     }
@@ -570,13 +530,14 @@ public class Guest : MonoBehaviour
     // 해당 뭉티를 초기화 시켜주는 함수
     public void InitGuestData() // 추후에 개발
     {
-
+        // 스크립터블 오브젝트를 하나 더 만들어서 그 값을 받아오는 식으로 설계 예정
     }
 
     // 방문주기를 초기화 해주는 함수
     public void InitGuestTime()
     {
         mGuestTime = 0.0f;
+        isTimeToTakeGuest = false;
         Debug.Log("방문주기 초기화");
     }
     
@@ -587,7 +548,10 @@ public class Guest : MonoBehaviour
 
 
         // 새로운 방문 뭉티 리스트를 뽑는다.
-
+        mGuestIndex = 0;
+        mGuestCount = -1;
+        mGuestMax = 0;
+        mTodayGuestList = NewChoiceGuest();
 
         // 방문 주기를 초기화한다.
         InitGuestTime();
@@ -598,4 +562,7 @@ public class Guest : MonoBehaviour
 
 }
 
+
+
+// 응접실에 방문하는 뭉티의 수를 NewChoiceGuest()함수에서 받아서 그만큼만 받을 수 있도록 제어
 

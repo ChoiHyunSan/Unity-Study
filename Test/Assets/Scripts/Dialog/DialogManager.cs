@@ -8,6 +8,7 @@ public class DialogManager : MonoBehaviour
 {
     // 불러올 값들 선언
     private Guest                   mGuestManager;
+    private SOWManager              mSOWManager;
 
     public int                      mGuestNum;           // 손님의 번호를 넘겨받는다.
     private int                     mGuestSat;           // 손님의 현재 만족도
@@ -64,11 +65,12 @@ public class DialogManager : MonoBehaviour
         tGuestText.text = "";
         tGuestName.text = "실연";
 
+        mSOWManager = GameObject.Find("SOWManager").GetComponent<SOWManager>();
         sGuestSpriteRender = gGuestSprite.GetComponent<SpriteRenderer>();
         mGuestManager = GameObject.Find("GuestManager").GetComponent<Guest>();
-
-        mGuestNum = 1;
-        mGuestSat = 1;
+   
+        mGuestNum = mGuestManager.mGuestIndex;
+        mGuestSat = mGuestManager.mGuestInfos[mGuestNum].mSatatisfaction;
 
         mGuestImageList = new int[20];
         mTextList = new string[20];
@@ -96,7 +98,6 @@ public class DialogManager : MonoBehaviour
     public void MoveScenetoWeatherSpace()
     {
         SceneManager.LoadScene("MainScene");
-        Debug.Log("hello");
     }
 
     // 해당 손님에 대한 대화값 정보를 불러오는 함수
@@ -108,7 +109,6 @@ public class DialogManager : MonoBehaviour
         int i;
         int j = 0;
 
-        Debug.Log(mDialogDB.DialogText.Count);
         for (i = 0; i < mDialogDB.DialogText.Count; ++i)
         {
             if (mDialogDB.DialogText[i].GuestID == mGuestNum)
@@ -147,7 +147,6 @@ public class DialogManager : MonoBehaviour
         if (tGuestText.text == GetDialog(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex))
         {
             // 텍스트가 모두 출력이 된 경우에 클릭 시, 다음 문장이 출력된다.
-            //mDialogIndex++;
             GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex += 1;
             mDialogImageIndex++;
             sGuestSpriteRender.sprite = sGuestImageArr[mDialogImageIndex];
@@ -195,8 +194,11 @@ public class DialogManager : MonoBehaviour
 
     // 손님 수락하기
     public void AcceptGuest()
-    { 
-       mGuestManager.InitGuestTime();
+    {
+        Debug.Log("손님을 받습니다.");
+        mSOWManager.InsertGuest(mGuestNum);
+
+        mGuestManager.InitGuestTime();
         // 손님이 이동했으므로 응접실에 있는 것들을 초기화 시켜준다.
         ClearGuest();
         MoveScenetoWeatherSpace();
@@ -205,6 +207,8 @@ public class DialogManager : MonoBehaviour
     // 손님 거절하기
     public void RejectGuest()
     {
+        Debug.Log("손님을 받지 않습니다.");
+
         // 방문하지 않는 횟수를 3으로 지정한다. (3일간 방문 X)
         mGuestManager.mGuestInfos[mGuestNum].mNotVisitCount = 3;
         mGuestManager.InitGuestTime();
@@ -217,13 +221,13 @@ public class DialogManager : MonoBehaviour
     // 응접실을 초기화 시켜준다.
     private void ClearGuest()
     {
+        // 방문횟수 1회 증가
+        mGuestManager.mGuestInfos[mGuestNum].mVisitCount++;
+
         GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex = 0;
     }
 }
 // 추가할 기능 구현목록
-
-// 대화가 끝난 뭉티를 거절하면 해당 뭉티는 3일간 방문하지 않는다.
-// -> 거절버튼에 대한 상호작용 만들어야 함 (방문금지 3일 + 되돌아가기)
 
 // 대화 도중이나 대화 시작 전에 하루가 종료되는 경우 해당 뭉티의 방문 이력은 없는 것으로 처리
 // -> 수락, 거절 버튼 누를때 방문한 것으로 추가시키는 방식으로 진행 
