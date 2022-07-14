@@ -17,7 +17,12 @@ MonoBehaviour:
   mEmotion: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   mSatatisfaction: 1
   EState: 0
-  sImg: []
+  sImg:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   mSatEmotions:
   - emotionNum: 0
     up: 0
@@ -43,7 +48,7 @@ MonoBehaviour:
     upLimitEmotionValue: 0
     downLimitEmotion: 0
     downLimitEmotionValue: 0
-  isDisSat: 1
+  isDisSat: 0
   isCure: 0
   mVisitCount: 0
   mNotVisitCount: 0

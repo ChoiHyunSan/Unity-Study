@@ -77,8 +77,17 @@ public class DialogManager : MonoBehaviour
 
         isReading = false;
 
-        LoadDialogInfo();
-        ReadDialog();
+        // 방문주기가 되지 않으면 손님이 나오지 않는다.
+        if (mGuestManager.isTimeToTakeGuest)
+        {
+            LoadDialogInfo();
+            ReadDialog();
+
+            // 대화 패널을 활성화
+            gTextPanel.SetActive(true);
+
+            // 손님 이미지를 활성화
+        }
     }
 
     // Update is called once per frame
@@ -88,6 +97,7 @@ public class DialogManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             MoveScenetoWeatherSpace();
+            GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex--;
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -147,10 +157,13 @@ public class DialogManager : MonoBehaviour
         if (tGuestText.text == GetDialog(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex))
         {
             // 텍스트가 모두 출력이 된 경우에 클릭 시, 다음 문장이 출력된다.
-            GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex += 1;
-            mDialogImageIndex++;
-            sGuestSpriteRender.sprite = sGuestImageArr[mDialogImageIndex];
-            isReading = false;
+            if (GetDialog(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex) != "End")
+            {
+                GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex += 1;
+                mDialogImageIndex++;
+                sGuestSpriteRender.sprite = sGuestImageArr[mDialogImageIndex];
+                isReading = false;
+            }
             return;
         }
         tGuestText.text += GetDialog(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex)[mDialogCharIndex];
@@ -163,7 +176,7 @@ public class DialogManager : MonoBehaviour
     public void ReadDialog()
     {
         InitDialog();
- 
+        Debug.Log(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex);
         // 마지막 End 문자열이 나오는 경우 ( 대화를 모두 불러온 경우)
         if (GetDialog(GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex) == "End")
         {
@@ -172,7 +185,6 @@ public class DialogManager : MonoBehaviour
             TakeGuest();
             return;
         }
-        gTextPanel.SetActive(true);
         // 대화가 출력중인 도중에 클릭한 경우, 문장이 한번에 출력이 된다.
         if (isReading == true)
         {
@@ -224,7 +236,16 @@ public class DialogManager : MonoBehaviour
         // 방문횟수 1회 증가
         mGuestManager.mGuestInfos[mGuestNum].mVisitCount++;
 
+        // 손님이 응접실에 없다고 표시
+        mGuestManager.isGuestInLivingRoom = false;
+
+        // 대화 인덱스를 0으로 초기화
         GameObject.Find("DialogIndex").GetComponent<DialogIndex>().mDialogIndex = 0;
+
+        // 대화 패널을 비활성화
+        gTextPanel.SetActive(false);
+
+        // 손님 이미지를 비활성화
     }
 }
 // 추가할 기능 구현목록

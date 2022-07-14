@@ -48,9 +48,9 @@ MonoBehaviour:
     upLimitEmotionValue: 60
     downLimitEmotion: 1
     downLimitEmotionValue: 40
-  isDisSat: 1
+  isDisSat: 0
   isCure: 0
-  mVisitCount: 3
+  mVisitCount: 0
   mNotVisitCount: 0
   isChosen: 0
   mUsedCloud: 0000000000000000000000000000000000000000

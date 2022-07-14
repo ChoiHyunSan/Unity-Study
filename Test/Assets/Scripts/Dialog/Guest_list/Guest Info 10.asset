@@ -43,7 +43,7 @@ MonoBehaviour:
     upLimitEmotionValue: 0
     downLimitEmotion: 0
     downLimitEmotionValue: 0
-  isDisSat: 1
+  isDisSat: 0
   isCure: 0
   mVisitCount: 0
   mNotVisitCount: 0

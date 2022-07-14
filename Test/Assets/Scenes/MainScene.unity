@@ -408,8 +408,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d987ae9e7be01944487726dd0239ecc0, type: 2}
   - {fileID: 11400000, guid: dedd151fc9aac654c9f8772e3bf6261f, type: 2}
   mGuestTime: 0
-  mTodayGuestList: 0000000000000000000000000000000000000000
   mGuestIndex: 0
+  mTodayGuestList: 0000000000000000000000000000000000000000
+  isGuestInLivingRoom: 0
+  isTimeToTakeGuest: 0
+  mGuestCount: 0
+  mGuestMax: 0
 --- !u!4 &381758962
 Transform:
   m_ObjectHideFlags: 0

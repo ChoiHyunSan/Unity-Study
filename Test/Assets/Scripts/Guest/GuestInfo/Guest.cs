@@ -8,11 +8,18 @@ public class Guest : MonoBehaviour
     public GuestInfo[]      mGuestInfos;                        // Scriptable Objects들의 정보를 담고 있는 배열
 
     public float            mGuestTime;                         // 뭉티의 방문 주기
-    private bool            isTimeToTakeGuest;                  // 뭉티 방문주기가 지났는지 확인
 
-    private int[]            mTodayGuestList = new int[6];      // 오늘 방문 예정인 뭉티 목록
-    public  int              mGuestIndex;                       // 이번에 방문할 뭉티의 번호
+    public int              mGuestIndex;                        // 이번에 방문할 뭉티의 번호
+
+    [SerializeField]
+    private int[]           mTodayGuestList = new int[6];       // 오늘 방문 예정인 뭉티 목록
+    [SerializeField]
+    public bool             isGuestInLivingRoom;                // 응접실에 손님이 방문해있는가?
+
+    public bool             isTimeToTakeGuest;                  // 뭉티 방문주기가 지났는지 확인
+    [SerializeField]
     private int              mGuestCount;                       // 이번에 방문할 뭉티의 순서
+    [SerializeField]
     private int              mGuestMax;                         // 오늘 방문하는 뭉티의 최대 숫자
 
     private static Guest    instance = null;                    // 싱글톤 기법을 위함 instance 생성
@@ -31,13 +38,14 @@ public class Guest : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this.gameObject);
 
-            InitDay();
-
             mGuestTime = 0;
             mGuestCount = -1;
             mGuestMax = 0;
-            isTimeToTakeGuest = false;
 
+            InitDay();
+
+            isTimeToTakeGuest = false;
+            isGuestInLivingRoom = false;
         }
         else
         {
@@ -56,7 +64,7 @@ public class Guest : MonoBehaviour
         else if(mGuestTime >= 5.0f && isTimeToTakeGuest == false)
         {
             // 모든 인덱스가 다 되지 않는 한 뭉티 방문주기가 다된경우 새로운 뭉티를 들여보낸다.
-            if (mGuestIndex != mGuestMax-2) // 0 1 2 3 4 5 
+            if (mGuestCount < mGuestMax - 1) // 0 1 2 3 4 5 
             {
                 Debug.Log("뭉티 방문시간이 되었습니다");
                 isTimeToTakeGuest = true;
@@ -108,12 +116,13 @@ public class Guest : MonoBehaviour
     }
 
     public void MoveSceneToLivingRoom()
-    { 
-        if(isTimeToTakeGuest == true)
+    {
+        SceneManager.LoadScene("LivingRoom");
+        if (isTimeToTakeGuest == true && isGuestInLivingRoom == false)
         {
-            SceneManager.LoadScene("LivingRoom");
             mGuestCount++;
             mGuestIndex = mTodayGuestList[mGuestCount];
+            isGuestInLivingRoom = true;
         }
     }
 
@@ -341,7 +350,6 @@ public class Guest : MonoBehaviour
                             rejectCount++;
                         }
                     }
-                    //Debug.Log("reject Count : " + rejectCount);
                     if ((mGuestInfos[NotVisitedGuestNum[temp]].isDisSat == true || mGuestInfos[NotVisitedGuestNum[temp]].mNotVisitCount != 0)
                         && rejectCount >= possibleToTake-2)
                     {
@@ -521,7 +529,7 @@ public class Guest : MonoBehaviour
                 mGuestMax++;
             }
         }
-
+        Debug.Log(mGuestMax);
         guestList = tempList;
 
         return guestList;
@@ -561,8 +569,3 @@ public class Guest : MonoBehaviour
     }
 
 }
-
-
-
-// 응접실에 방문하는 뭉티의 수를 NewChoiceGuest()함수에서 받아서 그만큼만 받을 수 있도록 제어
-
